@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>StoreSHG - Jasa & Akun Gaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #ff00ff;
+            --accent: #ffff00;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-attachment: fixed;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: rgba(20, 20, 30, 0.98);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid var(--glass-border);
+        }
+
+        .menu-overlay.active {
+            left: 0;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .menu-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+            background: none;
+            border: none;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: var(--glass);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .menu-item i {
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .menu-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-btn span {
+            width: 20px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .profile-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .profile-role {
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .profile-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px 5px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-btn i {
+            font-size: 20px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .social-btn.whatsapp { color: #25d366; }
+        .social-btn.instagram { color: #e4405f; }
+        .social-btn.email { color: #ea4335; }
+        .social-btn.channel { color: #25d366; }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .service-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .service-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .service-game {
+            font-size: 12px;
+            color: var(--accent);
+        }
+
+        .service-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .order-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .testimonial-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .testimonial-img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 2px solid var(--glass-border);
+        }
+
+        .stock-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .stock-item {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .stock-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .stock-info h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .stock-info p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .stock-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .stock-btn {
+            padding: 8px 15px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            color: var(--primary);
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .stock-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .sold-out {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        .sold-out .stock-btn {
+            display: none;
+        }
+
+        .panel-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .panel-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-header img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .panel-list {
+            list-style: none;
+        }
+
+        .panel-list li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            font-size: 13px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .panel-price {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .payment-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .qris-img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px solid var(--glass-border);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #4285f4;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .dana-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid var(--primary);
+        }
+
+        .dana-info i {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .bug-card {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 30, 0.95);
+            border-top: 1px solid var(--glass-border);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 10px;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--primary);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-header">
+            <h3 style="color: var(--primary);">Menu StoreSHG</h3>
+            <button class="menu-close" onclick="toggleMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <a href="#informasi" class="menu-item" onclick="toggleMenu()">
+            <i class="fas fa-info-circle"></i>
+            <span>Informasi Stok</span>
+        </a>
+        
+        <a href="#bot" class="menu-item" onclick="toggleMenu()">
+            <i class="fas fa-robot"></i>
+            <span>Bot WhatsApp</span>
+        </a>
+        
+        <a href="#panel" class="menu-item" onclick="toggleMenu()">
+            <i class="fas fa-server"></i>
+            <span>Panel Pterodactyl</span>
+        </a>
+        
+        <a href="#bug" class="menu-item" onclick="toggleMenu()">
+            <i class="fas fa-bug"></i>
+            <span>Jasa Bug</span>
+        </a>
+        
+        <a href="#jasa" class="menu-item" onclick="toggleMenu()">
+            <i class="fas fa-shield-alt"></i>
+            <span>Jasa Amanah</span>
+        </a>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+            <p style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 10px;">Hubungi Kami:</p>
+            <a href="mailto:syadame21@gmail.com" class="menu-item">
+                <i class="fas fa-envelope"></i>
+                <span>syadame21@gmail.com</span>
+            </a>
+            <a href="https://wa.me/6285960486152" class="menu-item">
+                <i class="fab fa-whatsapp"></i>
+                <span>Owner: SHG</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="brand">StoreSHG</div>
+            <div style="width: 40px;"></div>
+        </div>
+
+        <div class="profile-card">
+            <img src="https://files.catbox.moe/6wcbhg.jpg" alt="Profile" class="profile-img">
+            <div class="profile-name">StoreSHG</div>
+            <div class="profile-role">Amanah & Terpercaya</div>
+            <div class="profile-desc">
+                Melayani jual beli akun MLBB & Roblox, jasa amanah, jasa bug, dan penyedia bot WhatsApp. 
+                Semua transaksi aman dan terpercaya. Owner: SHG
+            </div>
+        </div>
+
+        <div class="social-grid">
+            <a href="https://wa.me/6285960486152" class="social-btn whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+            <a href="https://instagram.com/_storeshg" class="social-btn instagram" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="mailto:syadame21@gmail.com" class="social-btn email">
+                <i class="fas fa-envelope"></i>
+                <span>Email</span>
+            </a>
+            <a href="https://whatsapp.com/channel/0029Vb2tNkWBA1f615F3Qx2s" class="social-btn channel" target="_blank">
+                <i class="fas fa-broadcast-tower"></i>
+                <span>Saluran</span>
+            </a>
+        </div>
+
+        <div class="testimonial-card">
+            <h3 class="section-title">
+                <i class="fas fa-star"></i>
+                Testimoni Pelanggan
+            </h3>
+            <img src="https://files.catbox.moe/alcjuy.jpg" alt="Testimoni" class="testimonial-img">
+            <p style="font-size: 13px; color: rgba(255,255,255,0.8);">
+                Terima kasih telah mempercayai StoreSHG sebagai tempat transaksi Anda.
+            </p>
+        </div>
+
+        <h3 class="section-title" id="jasa">
+            <i class="fas fa-concierge-bell"></i>
+            Layanan Kami
+        </h3>
+
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <div class="service-title">Jasa Amanah</div>
+                    <div class="service-game">Roblox (Anti HB)</div>
+                </div>
+            </div>
+            <div class="service-desc">
+                Layanan jasa amanah khusus untuk akun Roblox. Garansi anti holdback (HB). 
+                Proses cepat dan aman.
+            </div>
+            <a href="https://wa.me/6285960486152?text=jasa%20amanah%20Roblox" class="order-btn">
+                Pesan Sekarang
+            </a>
+        </div>
+
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24);">
+                    <i class="fas fa-undo-alt"></i>
+                </div>
+                <div>
+                    <div class="service-title">Jasa Akun Kembali</div>
+                    <div class="service-game">Roblox (Recovery)</div>
+                </div>
+            </div>
+            <div class="service-desc">
+                Akun kena HB dari Roblox? Kami bisa bantu kembalikan. Bukan untuk MLBB. 
+                Proses aman dan privasi terjaga.
+            </div>
+            <a href="https://wa.me/6285960486152?text=jasa%20akun%20kembali%20Roblox" class="order-btn">
+                Pesan Sekarang
+            </a>
+        </div>
+
+        <div class="service-card bug-card" id="bug">
+            <div class="service-header">
+                <div class="service-icon" style="background: linear-gradient(135deg, #ff0000, #ff4757);">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <div>
+                    <div class="service-title">Jasa Bug WhatsApp</div>
+                    <div class="service-game">Error / Crash WA</div>
+                </div>
+            </div>
+            <div class="service-desc">
+                WhatsApp tidak bisa dibuka kena error? Kami sediakan jasa bug WA. 
+                Biasa: 5k | Keras: 10k
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                <div style="text-align: center; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <div style="font-size: 18px; font-weight: bold; color: var(--accent);">5k</div>
+                    <div style="font-size: 11px;">Bug Biasa</div>
+                </div>
+                <div style="text-align: center; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <div style="font-size: 18px; font-weight: bold; color: var(--accent);">10k</div>
+                    <div style="font-size: 11px;">Bug Keras</div>
+                </div>
+            </div>
+            <a href="https://wa.me/6285960486152?text=jasa%20bug%20wa" class="order-btn">
+                Pesan Bug WA
+            </a>
+        </div>
+
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-icon" style="background: linear-gradient(135deg, #f9ca24, #f0932b);">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div>
+                    <div class="service-title">Jual Akun ML & Roblox</div>
+                    <div class="service-game">Amanah & Anti HB</div>
+                </div>
+            </div>
+            <div class="service-desc">
+                Tersedia stok akun MLBB dan Roblox. Semua akun sudah dicek dan aman. 
+                Anti HB, full garansi.
+            </div>
+            <a href="https://wa.me/6285960486152?text=masih%20ada%20stok?" class="order-btn">
+                Cek Stok
+            </a>
+        </div>
+        <div class="panel-card" id="informasi">
+            <div class="panel-header">
+                <img src="https://files.catbox.moe/phwviy.jpg" alt="Stok Info" style="width: 100%; border-radius: 15px;">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">Profil by StoreSHG</h3>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7);">
+                    OTW SOLD - Jual stok semua, sibuk bgt, PM aja kasih harga silakan open DP | 
+                    All Safe/Aman | OPEN DP BERANI AJAK KENAL MC
+                </p>
+            </div>
+
+            <h4 style="margin-bottom: 15px; color: var(--accent);">Stok Akun Roblox:</h4>
+            <div class="stock-grid">
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 1 - Cocok Cewek+Cute</h4>
+                        <p>Ada Robux ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">35k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%201" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 2 - BF Sultan</h4>
+                        <p>Avatar Sultan ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">210k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%202" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 3 - Fresh/Take Email</h4>
+                        <p>Safe ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">220k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%203" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 4 - Fish Sultan</h4>
+                        <p>Daptol + Notopi ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">75k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%204" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+
+                <div class="stock-item sold-out">
+                    <div class="stock-info">
+                        <h4>Stok 5</h4>
+                        <p>SOLD OUT ❌</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">-</div>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 6 - Fish Sultan</h4>
+                        <p>Lumayan ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">45k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%206" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 7 - Avatar Sultan</h4>
+                        <p>Rapi ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">75k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%207" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 8 - Fish Sultan</h4>
+                        <p>Avatar Berobux ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">60k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%208" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Stok 9 - Free Cein</h4>
+                        <p>Safe ✅</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">180k</div>
+                        <a href="https://wa.me/6285960486152?text=beli%20stok%209" class="stock-btn">Pilih</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title" id="bot" style="margin-top: 30px;">
+            <i class="fas fa-robot"></i>
+            Bot WhatsApp
+        </h3>
+        <div class="panel-card">
+            <div class="panel-header">
+                <img src="https://files.catbox.moe/nk4nqb.jpg" alt="Bot WhatsApp" style="width: 100%; border-radius: 15px;">
+            </div>
+            
+            <p style="font-size: 14px; margin-bottom: 15px; color: var(--accent);">
+                <i class="fas fa-info-circle"></i> KALIAN INGIN BOT? 👇
+            </p>
+            
+            <h4 style="margin-bottom: 15px; color: #fff;">GROUP DIJAGA ONLY:</h4>
+            
+            <div class="stock-grid" style="margin-bottom: 20px;">
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Bot 10 Hari</h4>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">4k</div>
+                        <a href="https://wa.me/6285960486152?text=bot%2010%20hari%204k" class="stock-btn">Order</a>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Bot 20 Hari</h4>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">7k</div>
+                        <a href="https://wa.me/6285960486152?text=bot%2020%20hari%207k" class="stock-btn">Order</a>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-info">
+                        <h4>Bot Permanen</h4>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">10k</div>
+                        <a href="https://wa.me/6285960486152?text=bot%20permanen%2010k" class="stock-btn">Order</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                <p style="font-size: 12px; margin-bottom: 10px; color: var(--primary);">Bot Bisa:</p>
+                <p style="font-size: 11px; line-height: 1.8; color: rgba(255,255,255,0.8);">
+                    hidetag • survival • video • pinterest • AI (premium) • tagall • brat • bratvideo • 
+                    catbox • ambil foto=catbox • kick • dll
+                </p>
+            </div>
+
+            <div style="border-top: 1px solid var(--glass-border); padding-top: 15px; margin-top: 15px;">
+                <div class="stock-item" style="background: rgba(0,212,255,0.1);">
+                    <div class="stock-info">
+                        <h4>JADI BOT+OWNER</h4>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">15K</div>
+                        <a href="https://wa.me/6285960486152?text=jadi%20bot+owner%2015k" class="stock-btn">Order</a>
+                    </div>
+                </div>
+                <div class="stock-item" style="background: rgba(255,0,255,0.1); margin-top: 10px;">
+                    <div class="stock-info">
+                        <h4>SENDIRI OWNER</h4>
+                        <p>Bot+Panel</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="stock-price">50k</div>
+                        <a href="https://wa.me/6285960486152?text=sendiri%20owner%2050k" class="stock-btn">Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="section-title" id="panel">
+            <i class="fas fa-server"></i>
+            Panel Pterodactyl
+        </h3>
+        <div class="panel-card">
+            <div class="panel-header">
+                <img src="https://files.catbox.moe/qfccs0.jpg" alt="Panel" style="width: 100%; border-radius: 15px;">
+                <h3 style="color: var(--primary);">READY PANEL PTERODACTYL</h3>
+                <p style="font-size: 12px;">BY StoreSHG</p>
+            </div>
+
+            <h4 style="margin: 20px 0 15px; color: var(--accent);">PANEL SEBULAN 🦅</h4>
+            <ul class="panel-list">
+                <li>RAM 1GB CPU 40% = <span class="panel-price">1.000</span></li>
+                <li>RAM 2GB CPU 60% = <span class="panel-price">2.000</span></li>
+                <li>RAM 3GB CPU 80% = <span class="panel-price">3.000</span></li>
+                <li>RAM 4GB CPU 100% = <span class="panel-price">4.000</span></li>
+                <li>RAM 5GB CPU 120% = <span class="panel-price">5.000</span></li>
+                <li>RAM 6GB CPU 140% = <span class="panel-price">6.000</span></li>
+                <li>RAM 7GB CPU 160% = <span class="panel-price">7.000</span></li>
+                <li>RAM 8GB CPU 180% = <span class="panel-price">8.000</span></li>
+                <li>RAM 9GB CPU 200% = <span class="panel-price">9.000</span></li>
+                <li>RAM UNLIMITED CPU UNLI = <span class="panel-price">10.000</span></li>
+            </ul>
+
+            <h4 style="margin: 20px 0 15px; color: var(--accent);">ACCESS PANEL 🦅</h4>
+            <ul class="panel-list">
+                <li style="border-left-color: var(--secondary);">RESELLER PANEL = <span class="panel-price">30K/Bulan - 35K Permanen</span></li>
+                <li style="border-left-color: var(--secondary);">ADMIN PANEL = <span class="panel-price">40K/Bulan - 50K Permanen</span></li>
+            </ul>
+
+            <a href="https://wa.me/6285960486152?text=beli%20panel" class="order-btn" style="margin-top: 20px;">
+                Order Panel
+            </a>
+        </div>
+
+        <h3 class="section-title">
+            <i class="fas fa-wallet"></i>
+            Pembayaran
+        </h3>
+        
+        <div class="payment-card">
+            <h4 style="margin-bottom: 15px; color: var(--primary);">QRIS (Scan untuk bayar)</h4>
+            <img src="https://files.catbox.moe/biz9xo.jpg" alt="QRIS" class="qris-img" id="qrisImg">
+            <a href="https://files.catbox.moe/biz9xo.jpg" download class="download-btn" onclick="downloadQRIS()">
+                <i class="fas fa-download"></i>
+                Download QRIS
+            </a>
+            <p style="font-size: 11px; margin-top: 10px; color: rgba(255,255,255,0.6);">
+                Klik tombol di atas untuk download QRIS
+            </p>
+        </div>
+
+        <div class="payment-card">
+            <div class="dana-info">
+                <i class="fas fa-wallet"></i>
+                <h4 style="margin-bottom: 5px;">DANA</h4>
+                <p style="font-size: 18px; font-weight: bold; color: var(--primary);">085960486152</p>
+                <p style="font-size: 11px; color: rgba(255,255,255,0.6);">A/n StoreSHG</p>
+            </div>
+        </div>
+
+        <div class="payment-card" style="background: rgba(255,0,0,0.1); border-color: rgba(255,0,0,0.3);">
+            <i class="fas fa-exclamation-triangle" style="font-size: 30px; color: #ff4757; margin-bottom: 10px;"></i>
+            <h4 style="margin-bottom: 10px;">Lapor Masalah?</h4>
+            <p style="font-size: 13px; margin-bottom: 15px; color: rgba(255,255,255,0.8);">
+                Jika ada kendala atau masalah dengan transaksi, silakan laporkan ke email kami.
+            </p>
+            <a href="mailto:syadame21@gmail.com" class="order-btn" style="background: linear-gradient(135deg, #ff4757, #ff6348);">
+                <i class="fas fa-envelope"></i> Laporkan ke syadame21@gmail.com
+            </a>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://chat.whatsapp.com/CRgJNvZb4hBDltSuNqhJ3a" target="_blank">
+                    <i class="fas fa-users"></i> Grup WA
+                </a>
+                <a href="https://whatsapp.com/channel/0029Vb2tNkWBA1f615F3Qx2s" target="_blank">
+                    <i class="fas fa-broadcast-tower"></i> Saluran
+                </a>
+            </div>
+            <p>&copy; 2024 StoreSHG. All rights reserved.</p>
+            <p style="margin-top: 5px; font-size: 11px;">Amanah & Terpercaya</p>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="https://wa.me/6285960486152" class="nav-item">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat</span>
+        </a>
+        <a href="#informasi" class="nav-item">
+            <i class="fas fa-box"></i>
+            <span>Stok</span>
+        </a>
+        <a href="#" class="nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#bot" class="nav-item">
+            <i class="fas fa-robot"></i>
+            <span>Bot</span>
+        </a>
+        <a href="#panel" class="nav-item">
+            <i class="fas fa-server"></i>
+            <span>Panel</span>
+        </a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menuOverlay');
+            const overlay = document.getElementById('overlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function downloadQRIS() {
+            window.open('https://files.catbox.moe/biz9xo.jpg', '_blank');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
